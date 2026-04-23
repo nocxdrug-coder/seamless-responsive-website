@@ -1,7 +1,10 @@
-/** GET /products → home anchor #cards (featured products). */
-export function loader({ request }: { request: Request }) {
-  const u = new URL(request.url);
-  u.pathname = "/";
-  u.hash = "cards";
-  return Response.redirect(u.toString(), 302);
+import { redirect } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
+
+export async function loader(_: LoaderFunctionArgs) {
+  return redirect("/#cards");
+}
+
+export default function RedirectHomeProductsRoute() {
+  return null;
 }

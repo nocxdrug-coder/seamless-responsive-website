@@ -3,8 +3,8 @@ import type { Config } from "@react-router/dev/config";
 
 export default {
   // Config options...
-  // SSR disabled — running in SPA mode. Prerender removed (incompatible with API route exports in ssr:false mode).
-  ssr: false,
+  // Keep SSR enabled because many route modules export server loaders/actions.
+  ssr: true,
   presets: [vercelPreset()],
   future: {
     unstable_optimizeDeps: true,

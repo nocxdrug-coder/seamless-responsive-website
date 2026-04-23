@@ -11,3 +11,4 @@
 .netlify
 *.log
 .vercel
+node_modules

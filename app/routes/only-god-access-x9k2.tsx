@@ -100,8 +100,8 @@ export default function GodBypassPage() {
     authorized: true; token: string; adminId: string; lockedAccounts: LockedAccount[];
   };
   const isPending = fetcher.state !== "idle";
-  const result    = fetcher.data;
-  const lockMins  = LOCK_DURATION_MS / 60000;
+  const result = fetcher.data;
+  const lockMins = LOCK_DURATION_MS / 60000;
 
   return (
     <div style={{
