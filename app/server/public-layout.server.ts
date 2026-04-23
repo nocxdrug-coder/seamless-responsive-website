@@ -1,6 +1,11 @@
 import { parseSession } from "~/server/session.server";
 
 export async function loader({ request }: { request: Request }) {
-  const session = parseSession(request);
-  return Response.json({ isAuthenticated: !!session });
+  try {
+    const session = parseSession(request);
+    return Response.json({ isAuthenticated: !!session });
+  } catch (err) {
+    console.error("[public-layout.server] loader error:", err);
+    return Response.json({ isAuthenticated: false });
+  }
 }

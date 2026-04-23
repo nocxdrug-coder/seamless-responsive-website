@@ -18,6 +18,7 @@ function json(data: unknown, init?: ResponseInit) {
 }
 
 export async function loader({ request }: { request: Request }) {
+  try {
   const {
     getAdminStats,
     getAllUsers,
@@ -42,8 +43,10 @@ export async function loader({ request }: { request: Request }) {
   try {
     session = requireAdminSession(request);
   } catch (res) {
-    const { logSecurityEvent } = await import("~/server/security-log.server");
-    logSecurityEvent("ADMIN_UNAUTHORIZED", getClientIp(request), { detail: "admin_api_GET" });
+    try {
+      const { logSecurityEvent } = await import("~/server/security-log.server");
+      logSecurityEvent("ADMIN_UNAUTHORIZED", getClientIp(request), { detail: "admin_api_GET" });
+    } catch { /* logging is non-critical */ }
     return res as Response;
   }
 
@@ -220,6 +223,11 @@ export async function loader({ request }: { request: Request }) {
     productsAvailable: stats.productsAvailable,
     productsSold: stats.productsSold,
   });
+  } catch (err) {
+    if (err instanceof Response) throw err;
+    console.error("[api/admin] loader error:", err);
+    return json({ error: "Service temporarily unavailable." }, { status: 503 });
+  }
 }
 
 export async function action({ request }: { request: Request }) {
@@ -516,12 +524,15 @@ export async function action({ request }: { request: Request }) {
       return json({ error: "ip is required" }, { status: 400 });
     }
     try {
-      const adminSession = requireAdminSession(request);
-      const adminUser = await findUserById(adminSession.userId).catch(() => null);
+      const { requireAdminSession: _req } = await import("~/server/session.server");
+      const { getClientIp: _getIp } = await import("~/server/rate-limiter.server");
+      const { findUserById: _find } = await import("~/server/db.server");
+      const adminSession = _req(request);
+      const adminUser = await _find(adminSession.userId).catch(() => null);
       const bannedBy = adminUser?.email ?? "admin";
       await banIp(ip.trim(), reason ?? "", bannedBy, { isPermanent: isPermanent !== false, expiresAt });
       const { logSecurityEvent } = await import("~/server/security-log.server");
-      logSecurityEvent("ADMIN_ACTION", getClientIp(request), { userId: adminSession.userId, detail: `ban_ip:${ip}` });
+      logSecurityEvent("ADMIN_ACTION", _getIp(request), { userId: adminSession.userId, detail: `ban_ip:${ip}` });
       return json({ success: true });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -536,9 +547,11 @@ export async function action({ request }: { request: Request }) {
     }
     try {
       await unbanIp(ip.trim());
-      const adminSession = requireAdminSession(request);
+      const { requireAdminSession: _req } = await import("~/server/session.server");
+      const { getClientIp: _getIp } = await import("~/server/rate-limiter.server");
+      const adminSession = _req(request);
       const { logSecurityEvent } = await import("~/server/security-log.server");
-      logSecurityEvent("ADMIN_ACTION", getClientIp(request), { userId: adminSession.userId, detail: `unban_ip:${ip}` });
+      logSecurityEvent("ADMIN_ACTION", _getIp(request), { userId: adminSession.userId, detail: `unban_ip:${ip}` });
       return json({ success: true });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
