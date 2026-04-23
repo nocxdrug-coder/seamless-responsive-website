@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_8yYknINNr4eRGwibZoXucY8Q52Wd",
+  "orgId": "team_qkGyI9uxfnZz9rZWmhSZJpgK",
+  "projectName": "seamless-responsive-website",
+  "settings": {
+    "createdAt": 1776686291445,
+    "framework": "react-router",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": true,
+    "nodeVersion": "24.x"
+  }
+}

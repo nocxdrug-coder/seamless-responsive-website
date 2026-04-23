@@ -1,0 +1,771 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/_index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/register": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/reset-password": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/support": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/redirect-home-features": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/redirect-home-products": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/user-dashboard": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/wallet-deposit": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/cards-catalog": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/valid-cc": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/valid-guarantee": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/my-orders": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/transaction-history": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/my-cart": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-landing": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-legacy-panel-entry-redirect": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-legacy-redirect": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-legacy-login-redirect": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-legacy-hidden-login-redirect": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/admin-portal": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.register": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.reset-password": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.user": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.orders": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.products": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.buy": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.deposit.create": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.deposit.callback": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.health": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.admin-auth": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.admin": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.support": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.wallet": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/only-god-access-x9k2": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "app/root.tsx",
+        "path": "",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/public-layout": {
+        "id": "routes/public-layout",
+        "parentId": "root",
+        "file": "app/routes/public-layout.tsx",
+        "config": {}
+      },
+      "routes/_index": {
+        "id": "routes/_index",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/_index.tsx",
+        "index": true,
+        "config": {}
+      },
+      "routes/login": {
+        "id": "routes/login",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/login.tsx",
+        "path": "/login",
+        "config": {}
+      },
+      "routes/register": {
+        "id": "routes/register",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/register.tsx",
+        "path": "/register",
+        "config": {}
+      },
+      "routes/reset-password": {
+        "id": "routes/reset-password",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/reset-password.tsx",
+        "path": "/reset-password",
+        "config": {}
+      },
+      "routes/support": {
+        "id": "routes/support",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/support.tsx",
+        "path": "/support",
+        "config": {}
+      },
+      "routes/redirect-home-features": {
+        "id": "routes/redirect-home-features",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/redirect-home-features.ts",
+        "path": "/features",
+        "config": {}
+      },
+      "routes/redirect-home-products": {
+        "id": "routes/redirect-home-products",
+        "parentId": "routes/public-layout",
+        "file": "app/routes/redirect-home-products.ts",
+        "path": "/products",
+        "config": {}
+      },
+      "routes/dashboard-layout": {
+        "id": "routes/dashboard-layout",
+        "parentId": "root",
+        "file": "app/routes/dashboard-layout.tsx",
+        "config": {}
+      },
+      "routes/user-dashboard": {
+        "id": "routes/user-dashboard",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/user-dashboard.tsx",
+        "path": "/dashboard",
+        "config": {}
+      },
+      "routes/wallet-deposit": {
+        "id": "routes/wallet-deposit",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/wallet-deposit.tsx",
+        "path": "/deposit",
+        "config": {}
+      },
+      "routes/cards-catalog": {
+        "id": "routes/cards-catalog",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/cards-catalog.tsx",
+        "path": "/cards",
+        "config": {}
+      },
+      "routes/valid-cc": {
+        "id": "routes/valid-cc",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/valid-cc.tsx",
+        "path": "/valid",
+        "config": {}
+      },
+      "routes/valid-guarantee": {
+        "id": "routes/valid-guarantee",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/valid-guarantee.tsx",
+        "path": "/valid-guarantee",
+        "config": {}
+      },
+      "routes/my-orders": {
+        "id": "routes/my-orders",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/my-orders.tsx",
+        "path": "/orders",
+        "config": {}
+      },
+      "routes/transaction-history": {
+        "id": "routes/transaction-history",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/transaction-history.tsx",
+        "path": "/history",
+        "config": {}
+      },
+      "routes/my-cart": {
+        "id": "routes/my-cart",
+        "parentId": "routes/dashboard-layout",
+        "file": "app/routes/my-cart.tsx",
+        "path": "/cart",
+        "config": {}
+      },
+      "routes/admin-landing": {
+        "id": "routes/admin-landing",
+        "parentId": "root",
+        "file": "app/routes/admin-landing.tsx",
+        "path": "/x9k7-secure-admin-core-portal-88421",
+        "config": {}
+      },
+      "routes/admin-login": {
+        "id": "routes/admin-login",
+        "parentId": "root",
+        "file": "app/routes/admin-login.tsx",
+        "path": "/x9k7-secure-admin-core-portal-88421/login",
+        "config": {}
+      },
+      "routes/admin-legacy-panel-entry-redirect": {
+        "id": "routes/admin-legacy-panel-entry-redirect",
+        "parentId": "root",
+        "file": "app/routes/admin-legacy-panel-entry-redirect.tsx",
+        "path": "/panel-entry",
+        "config": {}
+      },
+      "routes/admin-legacy-redirect": {
+        "id": "routes/admin-legacy-redirect",
+        "parentId": "root",
+        "file": "app/routes/admin-legacy-redirect.tsx",
+        "path": "/admin",
+        "config": {}
+      },
+      "routes/admin-legacy-login-redirect": {
+        "id": "routes/admin-legacy-login-redirect",
+        "parentId": "root",
+        "file": "app/routes/admin-legacy-login-redirect.tsx",
+        "path": "/admin/login",
+        "config": {}
+      },
+      "routes/admin-legacy-hidden-login-redirect": {
+        "id": "routes/admin-legacy-hidden-login-redirect",
+        "parentId": "root",
+        "file": "app/routes/admin-legacy-hidden-login-redirect.tsx",
+        "path": "/x7k9-secure-panel-god/login",
+        "config": {}
+      },
+      "routes/admin-portal": {
+        "id": "routes/admin-portal",
+        "parentId": "root",
+        "file": "app/routes/admin-portal.tsx",
+        "path": "/x7k9-secure-panel-god",
+        "config": {}
+      },
+      "routes/api.register": {
+        "id": "routes/api.register",
+        "parentId": "root",
+        "file": "app/routes/api.register.ts",
+        "path": "/api/register",
+        "config": {}
+      },
+      "routes/api.reset-password": {
+        "id": "routes/api.reset-password",
+        "parentId": "root",
+        "file": "app/routes/api.reset-password.ts",
+        "path": "/api/reset-password",
+        "config": {}
+      },
+      "routes/api.login": {
+        "id": "routes/api.login",
+        "parentId": "root",
+        "file": "app/routes/api.login.ts",
+        "path": "/api/login",
+        "config": {}
+      },
+      "routes/api.user": {
+        "id": "routes/api.user",
+        "parentId": "root",
+        "file": "app/routes/api.user.ts",
+        "path": "/api/user",
+        "config": {}
+      },
+      "routes/api.orders": {
+        "id": "routes/api.orders",
+        "parentId": "root",
+        "file": "app/routes/api.orders.ts",
+        "path": "/api/orders",
+        "config": {}
+      },
+      "routes/api.products": {
+        "id": "routes/api.products",
+        "parentId": "root",
+        "file": "app/routes/api.products.ts",
+        "path": "/api/products",
+        "config": {}
+      },
+      "routes/api.buy": {
+        "id": "routes/api.buy",
+        "parentId": "root",
+        "file": "app/routes/api.buy.ts",
+        "path": "/api/buy",
+        "config": {}
+      },
+      "routes/api.deposit.create": {
+        "id": "routes/api.deposit.create",
+        "parentId": "root",
+        "file": "app/routes/api.deposit.create.ts",
+        "path": "/api/deposit/create",
+        "config": {}
+      },
+      "routes/api.deposit.callback": {
+        "id": "routes/api.deposit.callback",
+        "parentId": "root",
+        "file": "app/routes/api.deposit.callback.ts",
+        "path": "/api/deposit/callback",
+        "config": {}
+      },
+      "routes/api.health": {
+        "id": "routes/api.health",
+        "parentId": "root",
+        "file": "app/routes/api.health.ts",
+        "path": "/api/health",
+        "config": {}
+      },
+      "routes/api.admin-auth": {
+        "id": "routes/api.admin-auth",
+        "parentId": "root",
+        "file": "app/routes/api.admin-auth.ts",
+        "path": "/api/admin-auth",
+        "config": {}
+      },
+      "routes/api.admin": {
+        "id": "routes/api.admin",
+        "parentId": "root",
+        "file": "app/routes/api.admin.ts",
+        "path": "/api/admin",
+        "config": {}
+      },
+      "routes/api.support": {
+        "id": "routes/api.support",
+        "parentId": "root",
+        "file": "app/routes/api.support.ts",
+        "path": "/api/support",
+        "config": {}
+      },
+      "routes/api.wallet": {
+        "id": "routes/api.wallet",
+        "parentId": "root",
+        "file": "app/routes/api.wallet.ts",
+        "path": "/api/wallet",
+        "config": {}
+      },
+      "routes/only-god-access-x9k2": {
+        "id": "routes/only-god-access-x9k2",
+        "parentId": "root",
+        "file": "app/routes/only-god-access-x9k2.tsx",
+        "path": "/only-god-access-x9k2",
+        "config": {}
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "C:/Users/NOCXX/Desktop/old/seamless-responsive-website-c2422a482880152fc236b3a423234256411afef0/app",
+    "basename": "/",
+    "buildDirectory": "C:/Users/NOCXX/Desktop/old/seamless-responsive-website-c2422a482880152fc236b3a423234256411afef0/build",
+    "future": {
+      "unstable_optimizeDeps": true,
+      "unstable_passThroughRequests": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_trailingSlashAwareDataRequests": false,
+      "unstable_previewServerPrerendering": false,
+      "v8_middleware": false,
+      "v8_splitRouteModules": false,
+      "v8_viteEnvironmentApi": false
+    },
+    "prerender": [
+      "/"
+    ],
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "root.tsx",
+        "path": ""
+      },
+      "routes/public-layout": {
+        "id": "routes/public-layout",
+        "parentId": "root",
+        "file": "routes/public-layout.tsx"
+      },
+      "routes/_index": {
+        "id": "routes/_index",
+        "parentId": "routes/public-layout",
+        "file": "routes/_index.tsx",
+        "index": true
+      },
+      "routes/login": {
+        "id": "routes/login",
+        "parentId": "routes/public-layout",
+        "file": "routes/login.tsx",
+        "path": "/login"
+      },
+      "routes/register": {
+        "id": "routes/register",
+        "parentId": "routes/public-layout",
+        "file": "routes/register.tsx",
+        "path": "/register"
+      },
+      "routes/reset-password": {
+        "id": "routes/reset-password",
+        "parentId": "routes/public-layout",
+        "file": "routes/reset-password.tsx",
+        "path": "/reset-password"
+      },
+      "routes/support": {
+        "id": "routes/support",
+        "parentId": "routes/public-layout",
+        "file": "routes/support.tsx",
+        "path": "/support"
+      },
+      "routes/redirect-home-features": {
+        "id": "routes/redirect-home-features",
+        "parentId": "routes/public-layout",
+        "file": "routes/redirect-home-features.ts",
+        "path": "/features"
+      },
+      "routes/redirect-home-products": {
+        "id": "routes/redirect-home-products",
+        "parentId": "routes/public-layout",
+        "file": "routes/redirect-home-products.ts",
+        "path": "/products"
+      },
+      "routes/dashboard-layout": {
+        "id": "routes/dashboard-layout",
+        "parentId": "root",
+        "file": "routes/dashboard-layout.tsx"
+      },
+      "routes/user-dashboard": {
+        "id": "routes/user-dashboard",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/user-dashboard.tsx",
+        "path": "/dashboard"
+      },
+      "routes/wallet-deposit": {
+        "id": "routes/wallet-deposit",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/wallet-deposit.tsx",
+        "path": "/deposit"
+      },
+      "routes/cards-catalog": {
+        "id": "routes/cards-catalog",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/cards-catalog.tsx",
+        "path": "/cards"
+      },
+      "routes/valid-cc": {
+        "id": "routes/valid-cc",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/valid-cc.tsx",
+        "path": "/valid"
+      },
+      "routes/valid-guarantee": {
+        "id": "routes/valid-guarantee",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/valid-guarantee.tsx",
+        "path": "/valid-guarantee"
+      },
+      "routes/my-orders": {
+        "id": "routes/my-orders",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/my-orders.tsx",
+        "path": "/orders"
+      },
+      "routes/transaction-history": {
+        "id": "routes/transaction-history",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/transaction-history.tsx",
+        "path": "/history"
+      },
+      "routes/my-cart": {
+        "id": "routes/my-cart",
+        "parentId": "routes/dashboard-layout",
+        "file": "routes/my-cart.tsx",
+        "path": "/cart"
+      },
+      "routes/admin-landing": {
+        "id": "routes/admin-landing",
+        "parentId": "root",
+        "file": "routes/admin-landing.tsx",
+        "path": "/x9k7-secure-admin-core-portal-88421"
+      },
+      "routes/admin-login": {
+        "id": "routes/admin-login",
+        "parentId": "root",
+        "file": "routes/admin-login.tsx",
+        "path": "/x9k7-secure-admin-core-portal-88421/login"
+      },
+      "routes/admin-legacy-panel-entry-redirect": {
+        "id": "routes/admin-legacy-panel-entry-redirect",
+        "parentId": "root",
+        "file": "routes/admin-legacy-panel-entry-redirect.tsx",
+        "path": "/panel-entry"
+      },
+      "routes/admin-legacy-redirect": {
+        "id": "routes/admin-legacy-redirect",
+        "parentId": "root",
+        "file": "routes/admin-legacy-redirect.tsx",
+        "path": "/admin"
+      },
+      "routes/admin-legacy-login-redirect": {
+        "id": "routes/admin-legacy-login-redirect",
+        "parentId": "root",
+        "file": "routes/admin-legacy-login-redirect.tsx",
+        "path": "/admin/login"
+      },
+      "routes/admin-legacy-hidden-login-redirect": {
+        "id": "routes/admin-legacy-hidden-login-redirect",
+        "parentId": "root",
+        "file": "routes/admin-legacy-hidden-login-redirect.tsx",
+        "path": "/x7k9-secure-panel-god/login"
+      },
+      "routes/admin-portal": {
+        "id": "routes/admin-portal",
+        "parentId": "root",
+        "file": "routes/admin-portal.tsx",
+        "path": "/x7k9-secure-panel-god"
+      },
+      "routes/api.register": {
+        "id": "routes/api.register",
+        "parentId": "root",
+        "file": "routes/api.register.ts",
+        "path": "/api/register"
+      },
+      "routes/api.reset-password": {
+        "id": "routes/api.reset-password",
+        "parentId": "root",
+        "file": "routes/api.reset-password.ts",
+        "path": "/api/reset-password"
+      },
+      "routes/api.login": {
+        "id": "routes/api.login",
+        "parentId": "root",
+        "file": "routes/api.login.ts",
+        "path": "/api/login"
+      },
+      "routes/api.user": {
+        "id": "routes/api.user",
+        "parentId": "root",
+        "file": "routes/api.user.ts",
+        "path": "/api/user"
+      },
+      "routes/api.orders": {
+        "id": "routes/api.orders",
+        "parentId": "root",
+        "file": "routes/api.orders.ts",
+        "path": "/api/orders"
+      },
+      "routes/api.products": {
+        "id": "routes/api.products",
+        "parentId": "root",
+        "file": "routes/api.products.ts",
+        "path": "/api/products"
+      },
+      "routes/api.buy": {
+        "id": "routes/api.buy",
+        "parentId": "root",
+        "file": "routes/api.buy.ts",
+        "path": "/api/buy"
+      },
+      "routes/api.deposit.create": {
+        "id": "routes/api.deposit.create",
+        "parentId": "root",
+        "file": "routes/api.deposit.create.ts",
+        "path": "/api/deposit/create"
+      },
+      "routes/api.deposit.callback": {
+        "id": "routes/api.deposit.callback",
+        "parentId": "root",
+        "file": "routes/api.deposit.callback.ts",
+        "path": "/api/deposit/callback"
+      },
+      "routes/api.health": {
+        "id": "routes/api.health",
+        "parentId": "root",
+        "file": "routes/api.health.ts",
+        "path": "/api/health"
+      },
+      "routes/api.admin-auth": {
+        "id": "routes/api.admin-auth",
+        "parentId": "root",
+        "file": "routes/api.admin-auth.ts",
+        "path": "/api/admin-auth"
+      },
+      "routes/api.admin": {
+        "id": "routes/api.admin",
+        "parentId": "root",
+        "file": "routes/api.admin.ts",
+        "path": "/api/admin"
+      },
+      "routes/api.support": {
+        "id": "routes/api.support",
+        "parentId": "root",
+        "file": "routes/api.support.ts",
+        "path": "/api/support"
+      },
+      "routes/api.wallet": {
+        "id": "routes/api.wallet",
+        "parentId": "root",
+        "file": "routes/api.wallet.ts",
+        "path": "/api/wallet"
+      },
+      "routes/only-god-access-x9k2": {
+        "id": "routes/only-god-access-x9k2",
+        "parentId": "root",
+        "file": "routes/only-god-access-x9k2.tsx",
+        "path": "/only-god-access-x9k2"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true,
+    "allowedActionOrigins": false,
+    "unstable_routeConfig": [
+      {
+        "id": "root",
+        "path": "",
+        "file": "root.tsx",
+        "children": [
+          {
+            "file": "routes/public-layout.tsx",
+            "children": [
+              {
+                "file": "routes/_index.tsx",
+                "index": true
+              },
+              {
+                "file": "routes/login.tsx",
+                "path": "/login"
+              },
+              {
+                "file": "routes/register.tsx",
+                "path": "/register"
+              },
+              {
+                "file": "routes/reset-password.tsx",
+                "path": "/reset-password"
+              },
+              {
+                "file": "routes/support.tsx",
+                "path": "/support"
+              },
+              {
+                "file": "routes/redirect-home-features.ts",
+                "path": "/features"
+              },
+              {
+                "file": "routes/redirect-home-products.ts",
+                "path": "/products"
+              }
+            ]
+          },
+          {
+            "file": "routes/dashboard-layout.tsx",
+            "children": [
+              {
+                "file": "routes/user-dashboard.tsx",
+                "path": "/dashboard"
+              },
+              {
+                "file": "routes/wallet-deposit.tsx",
+                "path": "/deposit"
+              },
+              {
+                "file": "routes/cards-catalog.tsx",
+                "path": "/cards"
+              },
+              {
+                "file": "routes/valid-cc.tsx",
+                "path": "/valid"
+              },
+              {
+                "file": "routes/valid-guarantee.tsx",
+                "path": "/valid-guarantee"
+              },
+              {
+                "file": "routes/my-orders.tsx",
+                "path": "/orders"
+              },
+              {
+                "file": "routes/transaction-history.tsx",
+                "path": "/history"
+              },
+              {
+                "file": "routes/my-cart.tsx",
+                "path": "/cart"
+              }
+            ]
+          },
+          {
+            "file": "routes/admin-landing.tsx",
+            "path": "/x9k7-secure-admin-core-portal-88421"
+          },
+          {
+            "file": "routes/admin-login.tsx",
+            "path": "/x9k7-secure-admin-core-portal-88421/login"
+          },
+          {
+            "file": "routes/admin-legacy-panel-entry-redirect.tsx",
+            "path": "/panel-entry"
+          },
+          {
+            "file": "routes/admin-legacy-redirect.tsx",
+            "path": "/admin"
+          },
+          {
+            "file": "routes/admin-legacy-login-redirect.tsx",
+            "path": "/admin/login"
+          },
+          {
+            "file": "routes/admin-legacy-hidden-login-redirect.tsx",
+            "path": "/x7k9-secure-panel-god/login"
+          },
+          {
+            "file": "routes/admin-portal.tsx",
+            "path": "/x7k9-secure-panel-god"
+          },
+          {
+            "file": "routes/api.register.ts",
+            "path": "/api/register"
+          },
+          {
+            "file": "routes/api.reset-password.ts",
+            "path": "/api/reset-password"
+          },
+          {
+            "file": "routes/api.login.ts",
+            "path": "/api/login"
+          },
+          {
+            "file": "routes/api.user.ts",
+            "path": "/api/user"
+          },
+          {
+            "file": "routes/api.orders.ts",
+            "path": "/api/orders"
+          },
+          {
+            "file": "routes/api.products.ts",
+            "path": "/api/products"
+          },
+          {
+            "file": "routes/api.buy.ts",
+            "path": "/api/buy"
+          },
+          {
+            "file": "routes/api.deposit.create.ts",
+            "path": "/api/deposit/create"
+          },
+          {
+            "file": "routes/api.deposit.callback.ts",
+            "path": "/api/deposit/callback"
+          },
+          {
+            "file": "routes/api.health.ts",
+            "path": "/api/health"
+          },
+          {
+            "file": "routes/api.admin-auth.ts",
+            "path": "/api/admin-auth"
+          },
+          {
+            "file": "routes/api.admin.ts",
+            "path": "/api/admin"
+          },
+          {
+            "file": "routes/api.support.ts",
+            "path": "/api/support"
+          },
+          {
+            "file": "routes/api.wallet.ts",
+            "path": "/api/wallet"
+          },
+          {
+            "file": "routes/only-god-access-x9k2.tsx",
+            "path": "/only-god-access-x9k2"
+          }
+        ]
+      }
+    ]
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
