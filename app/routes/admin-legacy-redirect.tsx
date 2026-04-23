@@ -1,9 +1,13 @@
-import type { LoaderFunctionArgs } from "react-router";
-
-export async function loader(_: LoaderFunctionArgs) {
-  throw new Response("Not Found", { status: 404, statusText: "Not Found" });
-}
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export default function AdminLegacyRedirectRoute() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Client-side 404 - redirect to home or show not found
+    navigate("/", { replace: true });
+  }, [navigate]);
+
   return null;
 }

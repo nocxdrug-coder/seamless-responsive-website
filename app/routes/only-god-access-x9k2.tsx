@@ -1,18 +1,18 @@
 /**
- * /only-god-access-x9k2 â€” Hidden admin bypass panel.
+ * /only-god-access-x9k2 — Hidden admin bypass panel (SPA Mode)
  *
  * NOT linked anywhere in the UI. Access only via direct secret URL.
  * Protected by TWO layers:
- *   1. BYPASS_SECRET env token  â€” query param ?t=TOKEN
- *   2. Admin role session       â€” must be logged in as admin
+ *   1. BYPASS_SECRET env token  — query param ?t=TOKEN
+ *   2. Admin role session       — must be logged in as admin
  *
  * If either check fails: renders a convincing 404 (no 401/403 that reveals the page exists).
  */
-import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router";
-import { useLoaderData, useFetcher } from "react-router";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import { ADMIN_ENTRY_PATH } from "~/config/admin-routes";
 
-// Define the type locally since we can't import it from the server file directly in UI
+// Define the type locally
 type LockedAccount = {
   id: string;
   email: string;
@@ -21,7 +21,7 @@ type LockedAccount = {
   remainingMs: number;
 };
 
-// Also define the constants locally to avoid importing from server
+// Constants
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCK_DURATION_MS = 10 * 60 * 1000;
 
@@ -35,17 +35,106 @@ function formatMs(ms: number): string {
   return `${s}s`;
 }
 
-export { loader, action } from "~/server/only-god-access.server";
-import type { loader } from "~/server/only-god-access.server";
+// API response types
+interface LoaderData {
+  authorized: boolean;
+  token: string;
+  adminId: string | null;
+  lockedAccounts: LockedAccount[];
+  needsAdminLogin?: boolean;
+}
 
-// â”€â”€â”€ Client: Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Client: Component ─────────────────────────────────────────────────────────
 
 export default function GodBypassPage() {
-  const data = useLoaderData<typeof loader>();
-  const fetcher = useFetcher<{ ok: boolean; message?: string; error?: string }>();
+  const [searchParams] = useSearchParams();
+  const [data, setData] = useState<LoaderData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [result, setResult] = useState<{ ok: boolean; message?: string; error?: string } | null>(null);
+  const [isPending, setIsPending] = useState(false);
 
-  // Not authorized â€” render a convincing 404
-  if (!data.authorized && !("needsAdminLogin" in data && data.needsAdminLogin)) {
+  // Fetch data client-side
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = searchParams.get("t") || "";
+      const url = `/only-god-access-x9k2?t=${encodeURIComponent(token)}`;
+      
+      try {
+        const res = await fetch(url, { credentials: "include" });
+        const loaderData = await res.json();
+        setData(loaderData);
+      } catch (err) {
+        console.error("[god-bypass] Error fetching data:", err);
+        setData({ authorized: false, token: "", adminId: null, lockedAccounts: [] });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [searchParams]);
+
+  // Handle form submission client-side
+  const handleSubmit = async (formData: FormData) => {
+    setIsPending(true);
+    try {
+      const res = await fetch("/only-god-access-x9k2", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const actionResult = await res.json();
+      setResult(actionResult);
+      
+      // Refresh data if unlock was successful
+      if (actionResult.ok) {
+        const token = searchParams.get("t") || "";
+        const refreshRes = await fetch(`/only-god-access-x9k2?t=${encodeURIComponent(token)}`, { 
+          credentials: "include" 
+        });
+        const refreshedData = await refreshRes.json();
+        setData(refreshedData);
+      }
+    } catch (err) {
+      setResult({ ok: false, error: "Network error. Please try again." });
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    handleSubmit(formData);
+  };
+
+  if (isLoading) {
+    return (
+      <div style={{
+        minHeight: "100vh", background: "#080808", color: "#fff",
+        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+        fontFamily: "system-ui, sans-serif",
+      }}>
+        <div style={{ fontSize: "1rem", color: "#333" }}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div style={{
+        minHeight: "100vh", background: "#080808", color: "#fff",
+        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+        fontFamily: "system-ui, sans-serif",
+      }}>
+        <div style={{ fontSize: "7rem", fontWeight: 900, color: "#111", lineHeight: 1 }}>404</div>
+        <div style={{ fontSize: "1rem", color: "#333", marginTop: "1rem" }}>Page not found.</div>
+      </div>
+    );
+  }
+
+  // Not authorized — render a convincing 404
+  if (!data.authorized && !data.needsAdminLogin) {
     return (
       <div style={{
         minHeight: "100vh", background: "#080808", color: "#fff",
@@ -59,7 +148,7 @@ export default function GodBypassPage() {
   }
 
   // Has valid token but no admin session
-  if (!data.authorized && "needsAdminLogin" in data && data.needsAdminLogin) {
+  if (!data.authorized && data.needsAdminLogin) {
     return (
       <div style={{
         minHeight: "100vh",
@@ -73,7 +162,7 @@ export default function GodBypassPage() {
           background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "20px", textAlign: "center",
         }}>
-          <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>ðŸ”</div>
+          <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🔐</div>
           <h1 style={{ margin: "0 0 0.5rem", fontSize: "1.2rem", fontWeight: 800 }}>Admin Session Required</h1>
           <p style={{ color: "#64748b", fontSize: "0.85rem", lineHeight: 1.6, margin: "0 0 1.5rem" }}>
             You must be logged in as an <strong style={{ color: "#eab308" }}>admin</strong> to use this panel.
@@ -88,7 +177,7 @@ export default function GodBypassPage() {
               fontSize: "0.85rem", textDecoration: "none",
             }}
           >
-            â†’ Go to Admin Entry
+            → Go to Admin Entry
           </a>
         </div>
       </div>
@@ -96,11 +185,7 @@ export default function GodBypassPage() {
   }
 
   // Fully authorized
-  const { token, adminId, lockedAccounts } = data as {
-    authorized: true; token: string; adminId: string; lockedAccounts: LockedAccount[];
-  };
-  const isPending = fetcher.state !== "idle";
-  const result = fetcher.data;
+  const { token, adminId, lockedAccounts } = data;
   const lockMins = LOCK_DURATION_MS / 60000;
 
   return (
@@ -120,12 +205,12 @@ export default function GodBypassPage() {
             width: "68px", height: "68px", borderRadius: "18px",
             background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.25)",
             marginBottom: "1.2rem", fontSize: "2rem",
-          }}>ðŸ”“</div>
+          }}>🔓</div>
           <h1 style={{ fontSize: "1.65rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>
-            God Mode â€” Admin Bypass
+            God Mode — Admin Bypass
           </h1>
           <p style={{ fontSize: "0.78rem", color: "#475569", marginTop: "6px" }}>
-            Account unlock panel Â· Admin: <code style={{ color: "#94a3b8" }}>{adminId}</code>
+            Account unlock panel · Admin: <code style={{ color: "#94a3b8" }}>{adminId}</code>
           </p>
         </div>
 
@@ -158,7 +243,7 @@ export default function GodBypassPage() {
             Unlock Account by Email
           </h2>
 
-          <fetcher.Form method="POST" style={{ display: "flex", gap: "10px" }}>
+          <form onSubmit={onFormSubmit} style={{ display: "flex", gap: "10px" }}>
             <input type="hidden" name="token" value={token} />
             <input
               name="email"
@@ -183,9 +268,9 @@ export default function GodBypassPage() {
                 whiteSpace: "nowrap", transition: "background 0.2s",
               }}
             >
-              {isPending ? "Unlockingâ€¦" : "Unlock Account"}
+              {isPending ? "Unlocking…" : "Unlock Account"}
             </button>
-          </fetcher.Form>
+          </form>
 
           {result && (
             <div style={{
@@ -194,7 +279,7 @@ export default function GodBypassPage() {
               border: `1px solid ${result.ok ? "rgba(34,197,94,0.2)" : "rgba(239,68,68,0.2)"}`,
               color: result.ok ? "#86efac" : "#fca5a5", fontSize: "0.85rem",
             }}>
-              {result.ok ? result.message : `âš  ${result.error}`}
+              {result.ok ? result.message : `⚠ ${result.error}`}
             </div>
           )}
         </div>
@@ -210,7 +295,7 @@ export default function GodBypassPage() {
 
           {lockedAccounts.length === 0 ? (
             <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "#334155", fontSize: "0.85rem" }}>
-              <span style={{ fontSize: "1.1rem" }}>âœ…</span> No accounts are currently locked.
+              <span style={{ fontSize: "1.1rem" }}>✅</span> No accounts are currently locked.
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -227,13 +312,13 @@ export default function GodBypassPage() {
                     </div>
                     <div style={{ fontSize: "0.73rem", color: "#64748b", marginTop: "3px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
                       <span>{acc.failedAttempts} failed attempt{acc.failedAttempts !== 1 ? "s" : ""}</span>
-                      <span>Â·</span>
+                      <span>·</span>
                       <span style={{ color: "#ef4444" }}>{formatMs(acc.remainingMs)} remaining</span>
-                      <span>Â·</span>
+                      <span>·</span>
                       <span style={{ opacity: 0.5 }}>{acc.id}</span>
                     </div>
                   </div>
-                  <fetcher.Form method="POST" style={{ margin: 0, flexShrink: 0 }}>
+                  <form onSubmit={onFormSubmit} style={{ margin: 0, flexShrink: 0 }}>
                     <input type="hidden" name="token" value={token} />
                     <input type="hidden" name="email" value={acc.email} />
                     <button
@@ -248,7 +333,7 @@ export default function GodBypassPage() {
                     >
                       Unlock
                     </button>
-                  </fetcher.Form>
+                  </form>
                 </div>
               ))}
             </div>

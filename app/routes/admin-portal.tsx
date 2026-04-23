@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { redirect } from "react-router";
-import type { LoaderFunctionArgs } from "react-router";
+import { useNavigate } from "react-router";
 import { AdminHeader } from "~/blocks/admin-portal/admin-header";
 import { AdminNavigationTabs } from "~/blocks/admin-portal/admin-navigation-tabs";
 import { VirtualFundsManagement } from "~/blocks/admin-portal/virtual-funds-management";
@@ -16,11 +15,39 @@ import { Watermark } from "~/components/ui/watermark";
 import { ADMIN_LOGIN_PATH } from "~/config/admin-routes";
 import styles from "./admin-portal.module.css";
 
-export { loader } from "~/server/admin-portal.server";
-
-
 export default function AdminPortalPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("funds");
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Client-side admin auth check: redirect if not logged in as admin
+  useEffect(() => {
+    fetch("/api/admin-auth", { credentials: "include" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.authenticated) {
+          navigate(ADMIN_LOGIN_PATH, { replace: true });
+        } else {
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      });
+  }, [navigate]);
+
+  if (isLoading) {
+    return (
+      <div className={`${styles.page} protected`}>
+        <Watermark />
+        <div className={styles.inner}>
+          <div style={{ textAlign: "center", padding: "2rem", color: "#888" }}>
+            Verifying admin access...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${styles.page} protected`}>

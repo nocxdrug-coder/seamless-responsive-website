@@ -1,10 +1,12 @@
-import { redirect } from "react-router";
-import type { LoaderFunctionArgs } from "react-router";
-
-export async function loader(_: LoaderFunctionArgs) {
-  return redirect("/#cards");
-}
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export default function RedirectHomeProductsRoute() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/#cards", { replace: true });
+  }, [navigate]);
+
   return null;
 }

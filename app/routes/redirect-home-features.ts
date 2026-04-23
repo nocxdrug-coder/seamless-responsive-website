@@ -1,10 +1,12 @@
-import { redirect } from "react-router";
-import type { LoaderFunctionArgs } from "react-router";
-
-export async function loader(_: LoaderFunctionArgs) {
-  return redirect("/#features");
-}
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export default function RedirectHomeFeaturesRoute() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/#features", { replace: true });
+  }, [navigate]);
+
   return null;
 }
