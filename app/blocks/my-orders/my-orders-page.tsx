@@ -27,7 +27,7 @@ export function MyOrdersPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/orders")
+    fetch("/api/orders", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : { orders: [] }))
       .then((data) => setOrders(data.orders ?? []))
       .catch(() => setOrders([]))

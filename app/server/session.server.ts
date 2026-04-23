@@ -53,18 +53,40 @@ function isHttps(request: Request): boolean {
   try { return new URL(request.url).protocol === "https:"; } catch { return false; }
 }
 
+function isProductionRuntime(): boolean {
+  return process.env.NODE_ENV === "production" || process.env.VERCEL === "1";
+}
+
+function resolveCookieDomain(request?: Request): string {
+  if (!request) return "";
+  try {
+    const forwardedHost = (request.headers.get("x-forwarded-host") ?? "").split(",")[0]?.trim();
+    const hostWithPort = forwardedHost || new URL(request.url).host;
+    const hostname = hostWithPort.split(":")[0].trim().toLowerCase();
+    if (!hostname) return "";
+    if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") return "";
+    if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(hostname)) return "";
+    return `; Domain=${hostname}`;
+  } catch {
+    return "";
+  }
+}
+
 function buildCookie(
   name: string,
   value: string,
   maxAge: number,
   request?: Request
 ): string {
-  const secure = request && isHttps(request) ? "; Secure" : "";
-  return `${name}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`;
+  const secure = (request && isHttps(request)) || isProductionRuntime() ? "; Secure" : "";
+  const domain = resolveCookieDomain(request);
+  return `${name}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${domain}${secure}`;
 }
 
-function destroyCookie(name: string): string {
-  return `${name}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
+function destroyCookie(name: string, request?: Request): string {
+  const secure = (request && isHttps(request)) || isProductionRuntime() ? "; Secure" : "";
+  const domain = resolveCookieDomain(request);
+  return `${name}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${domain}${secure}`;
 }
 
 function createToken(payload: SessionPayload, secret: string): string {
@@ -110,8 +132,8 @@ export function createSessionCookie(payload: SessionPayload, request?: Request):
   return buildCookie(USER_COOKIE, createToken(payload, USER_SECRET), USER_MAX_AGE, request);
 }
 
-export function destroySessionCookie(): string {
-  return destroyCookie(USER_COOKIE);
+export function destroySessionCookie(request?: Request): string {
+  return destroyCookie(USER_COOKIE, request);
 }
 
 export function parseSession(request: Request): SessionPayload | null {
@@ -138,8 +160,8 @@ export function createAdminSessionCookie(payload: SessionPayload, request?: Requ
   return buildCookie(ADMIN_COOKIE, createToken(payload, ADMIN_SECRET), ADMIN_MAX_AGE, request);
 }
 
-export function destroyAdminSessionCookie(): string {
-  return destroyCookie(ADMIN_COOKIE);
+export function destroyAdminSessionCookie(request?: Request): string {
+  return destroyCookie(ADMIN_COOKIE, request);
 }
 
 export function parseAdminSession(request: Request): SessionPayload | null {

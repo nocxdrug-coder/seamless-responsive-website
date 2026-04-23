@@ -69,6 +69,7 @@ function fmtDate(value: number | string | null | undefined): string {
 async function adminPost(body: Record<string, unknown>) {
   const res = await fetch("/api/admin", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -77,7 +78,7 @@ async function adminPost(body: Record<string, unknown>) {
 
 async function adminGet(action: string, params: Record<string, string> = {}) {
   const qs = new URLSearchParams({ action, ...params }).toString();
-  const res = await fetch(`/api/admin?${qs}`);
+  const res = await fetch(`/api/admin?${qs}`, { credentials: "include" });
   return res.json();
 }
 

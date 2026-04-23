@@ -38,7 +38,7 @@ export async function loader({ request }: { request: Request }) {
     return new Response(JSON.stringify({ success: true }), {
       headers: {
         "Content-Type": "application/json",
-        "Set-Cookie": destroyAdminSessionCookie(),
+        "Set-Cookie": destroyAdminSessionCookie(request),
       },
     });
   }

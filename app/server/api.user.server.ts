@@ -26,7 +26,7 @@ export async function loader({ request }: { request: Request }) {
     const { parseSession } = await import("~/server/session.server");
     const session = parseSession(request);
     if (!session) {
-      return json({ error: "Unauthorized" }, { status: 401 });
+      return json({ user: null }, { status: 401 });
     }
 
     const [user, walletUsd, deposits, transactions] = await Promise.all([
@@ -68,6 +68,6 @@ export async function loader({ request }: { request: Request }) {
     });
   } catch (err) {
     console.error("[api/user] loader error:", err);
-    return json({ error: "Unauthorized" }, { status: 401 });
+    return json({ user: null }, { status: 401 });
   }
 }
