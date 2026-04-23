@@ -1,0 +1,36 @@
+-- ============================================================
+-- FULL PRODUCTS SCHEMA ALIGNMENT
+-- Run this in your Supabase SQL Editor:
+-- https://supabase.com/dashboard/project/jdnbysookmnxgamcurxu/sql/new
+-- ============================================================
+
+-- Ensure every column sent by the payload exists in the database
+ALTER TABLE products 
+  ADD COLUMN IF NOT EXISTS bin TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS provider TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS type TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS expiry TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS name TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS country TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS country_flag TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS state TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS street TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS city TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS address TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS zip TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS extras TEXT,
+  ADD COLUMN IF NOT EXISTS bank TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS price_usd_cents BIGINT NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS limit_usd BIGINT NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS valid_until TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS is_valid BOOLEAN NOT NULL DEFAULT FALSE,
+  ADD COLUMN IF NOT EXISTS tag TEXT,
+  ADD COLUMN IF NOT EXISTS stock INT NOT NULL DEFAULT 1,
+  ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'in_stock' CHECK (status IN ('in_stock', 'sold_out')),
+  ADD COLUMN IF NOT EXISTS color TEXT NOT NULL DEFAULT '#3b82f6',
+  ADD COLUMN IF NOT EXISTS card_number TEXT,
+  ADD COLUMN IF NOT EXISTS cvv TEXT,
+  ADD COLUMN IF NOT EXISTS full_name TEXT;
+
+-- Reload Supabase Schema Cache
+NOTIFY pgrst, 'reload schema';

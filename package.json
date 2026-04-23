@@ -1,0 +1,57 @@
+{
+  "name": "project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "preview": "react-router-serve build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@dazl/color-scheme": "^1.2.1",
+    "@hookform/resolvers": "^5.2.2",
+    "@react-router/node": "^7.14.1",
+    "@react-router/serve": "^7.14.1",
+    "@supabase/supabase-js": "^2.103.3",
+    "@vercel/react-router": "^1.2.6",
+    "bcryptjs": "^3.0.3",
+    "classnames": "^2.5.1",
+    "dotenv": "^17.4.2",
+    "isbot": "^5.1.38",
+    "lucide-react": "^1.8.0",
+    "radix-ui": "^1.4.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-hook-form": "^7.72.1",
+    "react-router": "^7.14.1",
+    "tsx": "^4.21.0",
+    "ua-parser-js": "^2.0.9"
+  },
+  "devDependencies": {
+    "@dazl-lib/radix-ui": "^0.1.0",
+    "@dazl/component-gallery": "^2.0.1",
+    "@dazl/dev": "^1.4.0",
+    "@react-router/dev": "^7.14.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "24",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "prettier": "^3.8.2",
+    "typescript": "~6.0.2",
+    "vite": "^7.3.2",
+    "vite-tsconfig-paths": "^6.1.1",
+    "javascript-obfuscator": "^4.1.1",
+    "rollup-plugin-javascript-obfuscator": "^1.0.5"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "endOfLine": "auto"
+  },
+  "overrides": {
+    "vite-tsconfig-paths": {
+      "typescript": "~6.0.2"
+    },
+    "@radix-ui/react-primitive": "2.1.3"
+  }
+}

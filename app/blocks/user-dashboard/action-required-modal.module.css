@@ -1,0 +1,199 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  pointer-events: auto;
+}
+
+.modal {
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 40px rgba(255, 46, 46, 0.15);
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.header {
+  background: linear-gradient(135deg, #ff2e2e, #b30000);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.headerIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 46, 46, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.headerText {
+  flex: 1;
+}
+
+.headerTitle {
+  font-family: var(--family-display);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.headerSubtitle {
+  font-size: var(--text-xs);
+  color: #bfbfbf;
+}
+
+.closeBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 46, 46, 0.2);
+}
+
+.body {
+  padding: var(--space-6);
+}
+
+.bodyText {
+  font-size: var(--text-sm);
+  color: #bfbfbf;
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+.deadlineBanner {
+  background: rgba(255, 46, 46, 0.08);
+  border: 1px solid rgba(255, 46, 46, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.deadlineIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 46, 46, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.deadlineContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deadlineTitle {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: #ff4d4d;
+}
+
+.deadlineDesc {
+  font-size: var(--text-xs);
+  color: #bfbfbf;
+  line-height: 1.5;
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: #bfbfbf;
+}
+
+.featureCheck {
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.topUpBtn {
+  flex: 1;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #ff2e2e, #ff4d4d);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: all var(--transition-fast);
+}
+
+.topUpBtn:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 0 22px rgba(255, 46, 46, 0.35);
+}
+
+.remindBtn {
+  flex: 1;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.06);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.remindBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--color-text);
+}

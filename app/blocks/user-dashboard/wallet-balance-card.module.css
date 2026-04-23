@@ -1,0 +1,116 @@
+.card {
+  background: linear-gradient(135deg, #1a0808, #2a1010);
+  border: 1px solid rgba(230,57,70,0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(230,57,70,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.balanceGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.balance {
+  font-family: var(--family-body);
+  font-weight: 800;
+  font-size: var(--text-5xl);
+  color: #fff;
+  line-height: 1;
+  font-stretch: normal;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.balanceCurrency {
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+}
+
+.depositInfo {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.5);
+  margin-top: var(--space-2);
+}
+
+.depositValue {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-self: center;
+}
+
+.addFundsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.65rem 1.5rem;
+  background: var(--gradient-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  box-shadow: var(--shadow-glow-sm);
+  transition: all var(--transition-base);
+}
+
+.addFundsBtn:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.withdrawBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.65rem 1.5rem;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.withdrawBtn:hover {
+  background: rgba(255,255,255,0.15);
+}

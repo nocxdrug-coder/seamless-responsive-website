@@ -1,0 +1,13 @@
+/* Hide horizontal scrollbar on the Users table in mobile view.
+   Swipe/scroll still works — only the visible scrollbar bar is hidden. */
+
+@media (max-width: 768px) {
+  .tableWrap {
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE / Edge legacy */
+  }
+
+  .tableWrap::-webkit-scrollbar {
+    display: none;               /* Chrome / Safari / WebKit */
+  }
+}

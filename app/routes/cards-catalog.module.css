@@ -1,0 +1,51 @@
+.page {
+  min-height: 100vh;
+  background: transparent;
+  padding: 1.5rem 1.25rem 2.5rem;
+}
+
+.inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-3);
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  margin-bottom: var(--space-4);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.resultsIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.resultsIconImage {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.resultsCount {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.resultsPage {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}

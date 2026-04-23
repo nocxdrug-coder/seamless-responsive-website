@@ -1,0 +1,275 @@
+/* ═══════════════════════════════════════════════
+   Dashboard Top Nav — Full Button Layout
+   No hamburger. No hidden drawer. All visible.
+═══════════════════════════════════════════════ */
+
+/* ── Outer wrapper ── */
+.header {
+  background:
+    radial-gradient(circle at top left, rgba(255,0,0,0.08), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(255,0,0,0.08), transparent 40%),
+    rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  width: 100%;
+}
+
+/* ── Brand bar ── */
+.brandBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: transparent;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.brandImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255,0,0,0.3));
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brandName {
+  font-family: var(--family-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.brandSub {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Navigation panel ── */
+.navPanel {
+  padding: var(--space-3) var(--space-5) var(--space-4);
+  background: transparent;
+}
+
+.panelLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+
+/* ── Button grid ── */
+.btnGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+/* ── Individual nav button ── */
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-family: var(--family-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-secondary);
+  transition:
+    background 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease,
+    transform 100ms ease;
+  white-space: nowrap;
+  line-height: 1;
+  user-select: none;
+}
+
+.navBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+
+.navBtn:active {
+  transform: scale(0.96);
+}
+
+.btnIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btnLabel {
+  font-size: var(--text-sm);
+}
+
+/* ── Active state ── */
+.navBtnActive {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.11) !important;
+  color: var(--color-text) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* ── Per-button accent colors ── */
+
+/* Dashboard — soft indigo */
+.accentDashboard:hover,
+.accentDashboard.navBtnActive {
+  background: rgba(99, 102, 241, 0.18) !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  color: #818cf8 !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* Deposit — primary red */
+.accentDeposit:hover,
+.accentDeposit.navBtnActive {
+  background: rgba(230, 57, 70, 0.18) !important;
+  border-color: rgba(230, 57, 70, 0.35) !important;
+  color: var(--color-primary) !important;
+  box-shadow: var(--shadow-glow-sm) !important;
+}
+
+/* History — orange */
+.accentHistory:hover,
+.accentHistory.navBtnActive {
+  background: rgba(249, 115, 22, 0.16) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: #fb923c !important;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.18) !important;
+}
+
+/* Orders — purple */
+.accentOrders:hover,
+.accentOrders.navBtnActive {
+  background: rgba(168, 85, 247, 0.16) !important;
+  border-color: rgba(168, 85, 247, 0.3) !important;
+  color: #c084fc !important;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.18) !important;
+}
+
+/* Shop — cyan */
+.accentShop:hover,
+.accentShop.navBtnActive {
+  background: rgba(6, 182, 212, 0.15) !important;
+  border-color: rgba(6, 182, 212, 0.3) !important;
+  color: #22d3ee !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.15) !important;
+}
+
+/* 100% Valid — green */
+.accentValid:hover,
+.accentValid.navBtnActive {
+  background: rgba(34, 197, 94, 0.15) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+  color: #4ade80 !important;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.15) !important;
+}
+
+/* Support — blue */
+.accentSupport:hover,
+.accentSupport.navBtnActive {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: #60a5fa !important;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Logout — red warning */
+.accentLogout {
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.07);
+}
+
+.accentLogout:hover {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+  color: #ef4444 !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE — 2-column grid (most important)
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .brandBar {
+    padding: var(--space-3) var(--space-4);
+    justify-content: flex-start;
+  }
+
+  .navPanel {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .panelLabel {
+    text-align: left;
+    margin-bottom: var(--space-2);
+  }
+
+  /* Swap from flex-wrap row → strict 2-column grid */
+  .btnGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    justify-content: stretch;
+  }
+
+  .navBtn {
+    /* Fill the grid cell — make buttons big and tappable */
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    min-height: 44px; /* WCAG touch target */
+  }
+
+  /* Logout takes full width at the bottom */
+  .accentLogout {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .navBtn {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .btnIcon svg {
+    width: 16px;
+    height: 16px;
+  }
+}

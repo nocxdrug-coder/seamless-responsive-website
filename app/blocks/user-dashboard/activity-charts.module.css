@@ -1,0 +1,81 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.chartCard {
+  background: rgba(20, 20, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 20px rgba(255, 0, 0, 0.08),
+    0 0 40px rgba(255, 0, 0, 0.04);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.chartCard:hover {
+  transform: translateY(-3px);
+}
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.chartTitle {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: #ffffff;
+}
+
+.chartBadge {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.06);
+  color: #bfbfbf;
+}
+
+.chartArea {
+  position: relative;
+  height: 120px;
+}
+
+.chartSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 20px;
+  pointer-events: none;
+}
+
+.yLabel {
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  font-family: var(--family-body);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

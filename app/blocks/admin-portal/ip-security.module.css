@@ -1,0 +1,410 @@
+/* ── IP Security Admin Panel ─────────────────────────────── */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Section header ──────────────────────────────────────── */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  font-family: var(--family-display, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-text, #f0f0f0);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionBadge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #f87171;
+}
+
+.sectionBadgeGreen {
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.28);
+  color: #4ade80;
+}
+
+/* ── Panel card ──────────────────────────────────────────── */
+.panel {
+  background: var(--color-bg-card, #111827);
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+}
+
+/* ── Stats bar ───────────────────────────────────────────── */
+.statsBar {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.statCard {
+  background: var(--color-bg-elevated, rgba(255,255,255,0.04));
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  border-radius: 10px;
+  padding: 0.85rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 110px;
+}
+
+.statVal {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text, #f0f0f0);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.statValRed  { color: #f87171; }
+.statValGreen { color: #4ade80; }
+.statValAmber { color: #fbbf24; }
+
+.statLbl {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+}
+
+/* ── Table wrapper ───────────────────────────────────────── */
+.tableWrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+.table th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  border-bottom: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.6rem 1rem;
+  font-size: 0.78rem;
+  color: var(--color-text-secondary, #aaa);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  white-space: nowrap;
+}
+
+.table tr:last-child td { border-bottom: none; }
+
+.table tr:hover td {
+  background: rgba(255,255,255,0.025);
+}
+
+/* ── IP address cell ─────────────────────────────────────── */
+.ipCell {
+  font-family: 'ui-monospace', 'Menlo', monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+/* ── Status chips ────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chipSuccess {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  color: #4ade80;
+}
+
+.chipFailed {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  color: #f87171;
+}
+
+.chipBlocked {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: #fbbf24;
+}
+
+.chipDefault {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #888;
+}
+
+/* ── Action chip (route/action label) ───────────────────── */
+.actionChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-family: 'ui-monospace', monospace;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #a5b4fc;
+}
+
+/* ── Ban form panel ──────────────────────────────────────── */
+.banForm {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+}
+
+.input {
+  padding: 0.55rem 0.75rem;
+  background: var(--color-bg-elevated, rgba(255,255,255,0.04));
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  color: var(--color-text, #f0f0f0);
+  font-size: 0.82rem;
+  font-family: var(--family-body, 'Inter', sans-serif);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: rgba(239,68,68,0.5);
+  box-shadow: 0 0 0 2px rgba(239,68,68,0.1);
+}
+
+.select {
+  padding: 0.55rem 0.75rem;
+  background: var(--color-bg-elevated, rgba(255,255,255,0.04));
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  color: var(--color-text, #f0f0f0);
+  font-size: 0.82rem;
+  font-family: var(--family-body, 'Inter', sans-serif);
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.banBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 8px;
+  color: #f87171;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--family-body, 'Inter', sans-serif);
+  white-space: nowrap;
+}
+
+.banBtn:hover:not(:disabled) {
+  background: rgba(239,68,68,0.25);
+  border-color: rgba(239,68,68,0.45);
+}
+
+.banBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.unbanBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 6px;
+  color: #4ade80;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--family-body, 'Inter', sans-serif);
+}
+
+.unbanBtn:hover { background: rgba(34,197,94,0.2); }
+
+/* ── Refresh bar ─────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.refreshBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 7px;
+  color: #a5b4fc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--family-body, 'Inter', sans-serif);
+}
+
+.refreshBtn:hover { background: rgba(99,102,241,0.2); }
+
+.filterInput {
+  padding: 0.4rem 0.75rem;
+  background: var(--color-bg-elevated, rgba(255,255,255,0.04));
+  border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+  border-radius: 7px;
+  color: var(--color-text, #f0f0f0);
+  font-size: 0.78rem;
+  font-family: 'ui-monospace', monospace;
+  outline: none;
+  width: 200px;
+  max-width: 100%;
+  transition: border-color 0.15s;
+}
+
+.filterInput:focus { border-color: rgba(99,102,241,0.4); }
+
+/* ── IP history chips ────────────────────────────────────── */
+.ipHistory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.ipHistoryChip {
+  font-family: 'ui-monospace', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.18);
+  color: #a5b4fc;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.ipHistoryChip:hover {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.3);
+  color: #f87171;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: #444;
+  font-size: 0.82rem;
+}
+
+/* ── Status / feedback message ───────────────────────────── */
+.msg {
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  animation: fadein 0.2s ease;
+}
+.msgOk  { background: rgba(34,197,94,0.07);  border: 1px solid rgba(34,197,94,0.2);  color: #4ade80; }
+.msgErr { background: rgba(239,68,68,0.07);  border: 1px solid rgba(239,68,68,0.2);  color: #f87171; }
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Rotating spinner ────────────────────────────────────── */
+.spinning { animation: spin 0.8s linear infinite; }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .banForm {
+    grid-template-columns: 1fr 1fr;
+  }
+  .statsBar {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .banForm {
+    grid-template-columns: 1fr;
+  }
+  .banBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
