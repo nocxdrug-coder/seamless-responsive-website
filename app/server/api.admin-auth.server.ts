@@ -56,6 +56,7 @@ export async function action({ request }: { request: Request }) {
   const { supabase } = await import("~/server/supabase.server");
   const { logMissingAdminAuthEnv } = await import("~/server/env.server");
   const { logServerError } = await import("~/server/server-logging.server");
+  // @ts-ignore
   const bcrypt = await import("bcryptjs").then((m) => m.default || m);
 
   if (request.method !== "POST") {
