@@ -2,7 +2,18 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": "build/client",
+  "functions": {
+    "api/login.ts": { "runtime": "nodejs18.x" },
+    "api/admin-auth.ts": { "runtime": "nodejs18.x" },
+    "api/user.ts": { "runtime": "nodejs18.x" },
+    "api/register.ts": { "runtime": "nodejs18.x" },
+    "api/health.ts": { "runtime": "nodejs18.x" }
+  },
   "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
