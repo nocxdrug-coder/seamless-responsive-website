@@ -3,11 +3,11 @@
   "installCommand": "npm install",
   "outputDirectory": "build/client",
   "functions": {
-    "api/login.ts": { "runtime": "nodejs18.x" },
-    "api/admin-auth.ts": { "runtime": "nodejs18.x" },
-    "api/user.ts": { "runtime": "nodejs18.x" },
-    "api/register.ts": { "runtime": "nodejs18.x" },
-    "api/health.ts": { "runtime": "nodejs18.x" }
+    "api/login.ts": { "runtime": "@vercel/node@3.0.0" },
+    "api/admin-auth.ts": { "runtime": "@vercel/node@3.0.0" },
+    "api/user.ts": { "runtime": "@vercel/node@3.0.0" },
+    "api/register.ts": { "runtime": "@vercel/node@3.0.0" },
+    "api/health.ts": { "runtime": "@vercel/node@3.0.0" }
   },
   "rewrites": [
     {
