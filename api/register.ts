@@ -4,44 +4,50 @@ import { createSessionCookie } from "../lib/session";
 import { hasEnv } from "../lib/env";
 import bcrypt from "bcryptjs";
 
-function json(data: unknown, init?: ResponseInit): Response {
-  return new Response(JSON.stringify(data), { ...init, headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) } });
+function buildWebReq(nodeReq: any): Request {
+  const headers = new Headers();
+  for (const [k, v] of Object.entries(nodeReq.headers || {})) {
+    if (v !== undefined) headers.append(k, Array.isArray(v) ? v.join(", ") : String(v));
+  }
+  return new Request(nodeReq.url, { method: nodeReq.method, headers });
 }
 function sanitizeEmail(v: unknown): string {
   return typeof v === "string" ? v.toLowerCase().trim().slice(0, 254) : "";
 }
 function isValidEmail(e: string): boolean { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") return json({ error: "Method not allowed" }, { status: 405 });
+export default async function handler(req: any, res: any): Promise<void> {
+  console.log("API HIT: /api/register", req.method);
 
-  if (!hasEnv("SUPABASE_URL") || !hasEnv("SESSION_SECRET") || (!hasEnv("SUPABASE_SERVICE_KEY") && !hasEnv("SUPABASE_ANON_KEY")))
-    return json({ error: "Registration is not configured on the server." }, { status: 503 });
+  if (req.method !== "POST") { res.status(405).json({ error: "Method not allowed" }); return; }
 
-  let body: { email?: unknown; name?: unknown; password?: unknown };
-  try { body = await req.json(); } catch { return json({ error: "Invalid request body" }, { status: 400 }); }
+  if (!hasEnv("SUPABASE_URL") || !hasEnv("SESSION_SECRET") || (!hasEnv("SUPABASE_SERVICE_KEY") && !hasEnv("SUPABASE_ANON_KEY"))) {
+    res.status(503).json({ error: "Registration is not configured on the server." }); return;
+  }
 
-  const email    = sanitizeEmail(body.email);
-  const name     = typeof body.name === "string" ? body.name.trim().slice(0, 80) : "";
-  const password = typeof body.password === "string" ? body.password.trim() : "";
+  const { email, name, password } = req.body || {};
+  const cleanEmail    = sanitizeEmail(email);
+  const cleanName     = typeof name === "string" ? name.trim().slice(0, 80) : "";
+  const cleanPassword = typeof password === "string" ? password.trim() : "";
 
-  if (!email || !isValidEmail(email)) return json({ error: "Invalid email address" }, { status: 400 });
-  if (!name || name.length < 2) return json({ error: "Name must be at least 2 characters" }, { status: 400 });
-  if (!password || password.length < 8) return json({ error: "Password must be at least 8 characters" }, { status: 400 });
-  if (password.length > 128) return json({ error: "Password too long" }, { status: 400 });
+  if (!cleanEmail || !isValidEmail(cleanEmail)) { res.status(400).json({ error: "Invalid email address" }); return; }
+  if (!cleanName || cleanName.length < 2) { res.status(400).json({ error: "Name must be at least 2 characters" }); return; }
+  if (!cleanPassword || cleanPassword.length < 8) { res.status(400).json({ error: "Password must be at least 8 characters" }); return; }
+  if (cleanPassword.length > 128) { res.status(400).json({ error: "Password too long" }); return; }
 
-  const { data: existing } = await supabase.from("users").select("id").eq("email", email).maybeSingle();
-  if (existing) return json({ error: "Email address already registered" }, { status: 409 });
+  const { data: existing } = await supabase.from("users").select("id").eq("email", cleanEmail).maybeSingle();
+  if (existing) { res.status(409).json({ error: "Email address already registered" }); return; }
 
-  const hash = await bcrypt.hash(password, 10);
+  const hash = await bcrypt.hash(cleanPassword, 10);
   const { data: user, error } = await supabase
     .from("users")
-    .insert([{ email, name, password_hash: hash, role: "user", wallet_usd: 0, total_deposited_usd: 0 }])
+    .insert([{ email: cleanEmail, name: cleanName, password_hash: hash, role: "user", wallet_usd: 0, total_deposited_usd: 0 }])
     .select("id,email,name,role")
     .single();
 
-  if (error) return json({ error: "Registration temporarily unavailable." }, { status: 503 });
+  if (error) { res.status(503).json({ error: "Registration temporarily unavailable." }); return; }
 
-  const cookie = createSessionCookie({ userId: user.id, role: user.role }, req);
-  return json({ success: true, user: { id: user.id, email: user.email, name: user.name, role: user.role } }, { status: 201, headers: { "Set-Cookie": cookie } });
+  const cookie = createSessionCookie({ userId: user.id, role: user.role }, buildWebReq(req));
+  res.setHeader("Set-Cookie", cookie);
+  res.status(201).json({ success: true, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
 }

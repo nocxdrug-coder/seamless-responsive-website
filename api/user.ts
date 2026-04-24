@@ -2,17 +2,22 @@
 import { supabase } from "../lib/supabase";
 import { parseSession } from "../lib/session";
 
-function json(data: unknown, init?: ResponseInit): Response {
-  return new Response(JSON.stringify(data), {
-    ...init,
-    headers: { "Content-Type": "application/json", "Cache-Control": "private, no-store", ...(init?.headers ?? {}) },
-  });
+function buildWebReq(nodeReq: any): Request {
+  const headers = new Headers();
+  for (const [k, v] of Object.entries(nodeReq.headers || {})) {
+    if (v !== undefined) headers.append(k, Array.isArray(v) ? v.join(", ") : String(v));
+  }
+  return new Request(nodeReq.url, { method: nodeReq.method, headers });
 }
 
-export default async function handler(req: Request): Promise<Response> {
+function sendJson(res: any, data: unknown, status = 200, extraHeaders: Record<string, string> = {}) {
+  res.status(status).json(data);
+}
+
+export default async function handler(req: any, res: any): Promise<void> {
   try {
-    const session = parseSession(req);
-    if (!session) return json({ user: null }, { status: 401 });
+    const session = parseSession(buildWebReq(req));
+    if (!session) { res.status(401).json({ user: null }); return; }
 
     const [userRes, depositRes, txRes] = await Promise.all([
       supabase.from("users").select("id,email,name,role,wallet_usd,total_deposited_usd").eq("id", session.userId).maybeSingle(),
@@ -21,10 +26,10 @@ export default async function handler(req: Request): Promise<Response> {
     ]);
 
     const user = userRes.data;
-    if (!user) return json({ error: "User not found" }, { status: 404 });
+    if (!user) { res.status(404).json({ error: "User not found" }); return; }
 
     const walletUsd = Number(user.wallet_usd);
-    return json({
+    res.status(200).json({
       id: user.id, email: user.email, name: user.name, role: user.role,
       walletUsd, walletDisplay: (walletUsd / 100).toFixed(2),
       totalDepositedUsd: user.total_deposited_usd,
@@ -44,6 +49,6 @@ export default async function handler(req: Request): Promise<Response> {
     });
   } catch (err) {
     console.error("[api/user]", err);
-    return json({ user: null }, { status: 401 });
+    res.status(401).json({ user: null });
   }
 }

@@ -2,7 +2,8 @@
 import { supabase, testConnection } from "../lib/supabase";
 import { getEnv, hasEnv } from "../lib/env";
 
-export default async function handler(_req: Request): Promise<Response> {
+export default async function handler(_req: any, res: any): Promise<void> {
+  console.log("API HIT: /api/health", _req.method);
   try {
     const conn = await testConnection();
     const tables = ["users", "products", "orders", "transactions", "deposits", "settings", "processed_callbacks"];
@@ -13,7 +14,7 @@ export default async function handler(_req: Request): Promise<Response> {
     }));
     const allExist = Object.values(tableChecks).every(Boolean);
 
-    return new Response(JSON.stringify({
+    res.status(200).json({
       status: conn.ok && allExist ? "ok" : "error",
       timestamp: new Date().toISOString(),
       env: {
@@ -26,10 +27,8 @@ export default async function handler(_req: Request): Promise<Response> {
       },
       supabase: { connected: conn.ok, error: conn.error ?? null },
       tables: tableChecks,
-    }, null, 2), { headers: { "Content-Type": "application/json" } });
-  } catch (err) {
-    return new Response(JSON.stringify({ status: "error", error: err instanceof Error ? err.message : String(err) }), {
-      status: 500, headers: { "Content-Type": "application/json" },
     });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err instanceof Error ? err.message : String(err) });
   }
 }

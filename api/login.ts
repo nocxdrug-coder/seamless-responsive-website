@@ -2,51 +2,44 @@ import { supabase } from "../lib/supabase";
 import { createSessionCookie } from "../lib/session";
 import bcrypt from "bcryptjs";
 
-export default async function handler(req: Request): Promise<Response> {
+function buildWebReq(nodeReq: any): Request {
+  const headers = new Headers();
+  for (const [k, v] of Object.entries(nodeReq.headers || {})) {
+    if (v !== undefined) headers.append(k, Array.isArray(v) ? v.join(", ") : String(v));
+  }
+  return new Request(nodeReq.url, { method: nodeReq.method, headers });
+}
+
+export default async function handler(req: any, res: any): Promise<void> {
+  console.log("API HIT: /api/login", req.method);
+
   if (req.method !== "POST") {
-    return new Response(
-      JSON.stringify({ success: false, message: "Only POST allowed" }),
-      { status: 405, headers: { "Content-Type": "application/json" } }
-    );
+    return res.status(405).json({ success: false, message: "Only POST allowed" });
   }
 
   try {
-    const body = await req.json();
-    const email = body?.email?.toLowerCase().trim();
-    const password = body?.password;
-
+    const { email, password } = req.body || {};
     if (!email || !password) {
-      return new Response(
-        JSON.stringify({ success: false, message: "Missing email or password" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+      return res.status(400).json({ success: false, message: "Missing email or password" });
     }
 
+    const cleanEmail = String(email).toLowerCase().trim();
     const { data: user } = await supabase
       .from("users")
       .select("id,email,name,role,password_hash")
-      .eq("email", email)
+      .eq("email", cleanEmail)
       .maybeSingle();
 
     const valid = user ? await bcrypt.compare(password, user.password_hash ?? "") : false;
-
     if (!user || !valid) {
-      return new Response(
-        JSON.stringify({ success: false, message: "Invalid credentials" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
-    const cookie = createSessionCookie({ userId: user.id, role: user.role }, req);
-
-    return new Response(
-      JSON.stringify({ success: true, user: { id: user.id, email: user.email, name: user.name, role: user.role } }),
-      { status: 200, headers: { "Content-Type": "application/json", "Set-Cookie": cookie } }
-    );
+    const cookie = createSessionCookie({ userId: user.id, role: user.role }, buildWebReq(req));
+    res.setHeader("Set-Cookie", cookie);
+    return res.status(200).json({ success: true, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
   } catch (err) {
-    return new Response(
-      JSON.stringify({ success: false, message: "Server error" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    console.error("API ERROR:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 }
