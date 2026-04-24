@@ -34,21 +34,28 @@ export function LoginForm() {
     try {
       const res = await fetch("/api/login", {
         method: "POST",
-        // credentials: "include" ensures the Set-Cookie response header
-        // is stored by the browser and sent on all subsequent requests.
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), password }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? "Login failed. Please try again.");
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        setError("Invalid response from server. Please try again.");
         return;
       }
+
+      if (!res.ok || !data.success) {
+        setError(data.message || data.error || "Login failed. Please try again.");
+        return;
+      }
+      
       login(data.user);
       navigate(fromPath, { replace: true });
-    } catch {
-      setError("Network error. Please check your connection.");
+    } catch (err) {
+      setError("Failed to communicate with the server. Please check your connection.");
     } finally {
       setIsLoading(false);
     }

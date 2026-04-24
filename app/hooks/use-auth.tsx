@@ -53,8 +53,7 @@ export function useAuth() {
     localStorage.removeItem(USER_KEY);
     setUser(null);
     try {
-      // credentials: "include" clears the HttpOnly cookie server-side
-      await fetch("/api/login?action=logout", { credentials: "include" });
+      await fetch("/api/login?action=logout", { method: "POST", credentials: "include" });
     } catch {
       // session cookie cleared on next request anyway
     }
