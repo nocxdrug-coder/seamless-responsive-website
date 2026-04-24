@@ -1,14 +1,7 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": "build/client",
-  "functions": {
-    "api/login.ts": { "runtime": "@vercel/node@3.0.0" },
-    "api/admin-auth.ts": { "runtime": "@vercel/node@3.0.0" },
-    "api/user.ts": { "runtime": "@vercel/node@3.0.0" },
-    "api/register.ts": { "runtime": "@vercel/node@3.0.0" },
-    "api/health.ts": { "runtime": "@vercel/node@3.0.0" }
-  },
+  "framework": null,
   "rewrites": [
     {
       "source": "/api/:path*",

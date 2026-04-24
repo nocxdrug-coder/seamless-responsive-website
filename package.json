@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "react-router build && npm run copy-public",
+    "copy-public": "rm -rf public && cp -r build/client public",
     "dev": "react-router dev",
     "preview": "react-router-serve build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
     "typecheck": "react-router typegen && tsc"
