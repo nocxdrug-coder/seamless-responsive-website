@@ -1,8 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "framework": "react-router",
-  "functions": {
-    "api/login.ts": { "maxDuration": 10 },
-    "api/health.ts": { "maxDuration": 10 }
-  }
+  "installCommand": "npm install",
+  "framework": null
 }
