@@ -1,1 +1,2 @@
-export { loader, action } from "~/server/api.login.server";
+// This file is intentionally empty. API logic moved to /api/ (Vercel serverless functions).
+

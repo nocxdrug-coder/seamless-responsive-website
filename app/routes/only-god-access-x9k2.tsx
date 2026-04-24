@@ -53,11 +53,11 @@ export default function GodBypassPage() {
   const [result, setResult] = useState<{ ok: boolean; message?: string; error?: string } | null>(null);
   const [isPending, setIsPending] = useState(false);
 
-  // Fetch data client-side
+  // Fetch data client-side from the dedicated API endpoint
   useEffect(() => {
     const fetchData = async () => {
       const token = searchParams.get("t") || "";
-      const url = `/only-god-access-x9k2?t=${encodeURIComponent(token)}`;
+      const url = `/api/god-bypass?t=${encodeURIComponent(token)}`;
       
       try {
         const res = await fetch(url, { credentials: "include" });
@@ -78,7 +78,7 @@ export default function GodBypassPage() {
   const handleSubmit = async (formData: FormData) => {
     setIsPending(true);
     try {
-      const res = await fetch("/only-god-access-x9k2", {
+      const res = await fetch("/api/god-bypass", {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -89,7 +89,7 @@ export default function GodBypassPage() {
       // Refresh data if unlock was successful
       if (actionResult.ok) {
         const token = searchParams.get("t") || "";
-        const refreshRes = await fetch(`/only-god-access-x9k2?t=${encodeURIComponent(token)}`, { 
+        const refreshRes = await fetch(`/api/god-bypass?t=${encodeURIComponent(token)}`, { 
           credentials: "include" 
         });
         const refreshedData = await refreshRes.json();

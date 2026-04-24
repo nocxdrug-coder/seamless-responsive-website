@@ -1,4 +1,3 @@
-import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router";
 
 type LockedAccount = {
   id: string;
@@ -8,7 +7,7 @@ type LockedAccount = {
   remainingMs: number;
 };
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: { request: Request }): Promise<Response> {
   try {
     const { isValidBypassToken, getLockedAccounts } = await import("~/server/login-lock.server");
     const { parseAdminSession } = await import("~/server/session.server");
@@ -18,13 +17,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
     // Layer 1: BYPASS_SECRET token check
     if (!isValidBypassToken(token)) {
-      return { authorized: false, token: "", adminId: null, lockedAccounts: [] as LockedAccount[] };
+      return Response.json({ authorized: false, token: "", adminId: null, lockedAccounts: [] });
     }
 
     // Layer 2: Must have a valid admin session
     const adminSession = parseAdminSession(request);
     if (!adminSession || adminSession.role !== "admin") {
-      return { authorized: false, token, adminId: null, lockedAccounts: [] as LockedAccount[], needsAdminLogin: true };
+      return Response.json({ authorized: false, token, adminId: null, lockedAccounts: [], needsAdminLogin: true });
     }
 
     let lockedAccounts: LockedAccount[] = [];
@@ -34,20 +33,20 @@ export async function loader({ request }: LoaderFunctionArgs) {
       /* Supabase might not have the columns yet — fail gracefully */
     }
 
-    return {
+    return Response.json({
       authorized: true,
       token,
       adminId: adminSession.userId,
       lockedAccounts,
       needsAdminLogin: false,
-    };
+    });
   } catch (err) {
     console.error("[only-god-access] loader error:", err);
-    return { authorized: false, token: "", adminId: null, lockedAccounts: [] as LockedAccount[] };
+    return Response.json({ authorized: false, token: "", adminId: null, lockedAccounts: [] });
   }
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request }: { request: Request }) {
   try {
     const { isValidBypassToken, unlockByEmail } = await import("~/server/login-lock.server");
     const { parseAdminSession } = await import("~/server/session.server");

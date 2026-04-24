@@ -1,1 +1,2 @@
-export { action } from "~/server/api.reset-password.server";
+// This file is intentionally empty. API logic moved to /api/ (Vercel serverless functions).
+

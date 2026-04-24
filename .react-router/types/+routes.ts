@@ -77,48 +77,6 @@ type Pages = {
   "/x7k9-secure-panel-god": {
     params: {};
   };
-  "/api/register": {
-    params: {};
-  };
-  "/api/reset-password": {
-    params: {};
-  };
-  "/api/login": {
-    params: {};
-  };
-  "/api/user": {
-    params: {};
-  };
-  "/api/orders": {
-    params: {};
-  };
-  "/api/products": {
-    params: {};
-  };
-  "/api/buy": {
-    params: {};
-  };
-  "/api/deposit/create": {
-    params: {};
-  };
-  "/api/deposit/callback": {
-    params: {};
-  };
-  "/api/health": {
-    params: {};
-  };
-  "/api/admin-auth": {
-    params: {};
-  };
-  "/api/admin": {
-    params: {};
-  };
-  "/api/support": {
-    params: {};
-  };
-  "/api/wallet": {
-    params: {};
-  };
   "/only-god-access-x9k2": {
     params: {};
   };
@@ -127,7 +85,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/login" | "/register" | "/reset-password" | "/support" | "/features" | "/products" | "/dashboard" | "/deposit" | "/cards" | "/valid" | "/valid-guarantee" | "/orders" | "/history" | "/cart" | "/x9k7-secure-admin-core-portal-88421" | "/x9k7-secure-admin-core-portal-88421/login" | "/panel-entry" | "/admin" | "/admin/login" | "/x7k9-secure-panel-god/login" | "/x7k9-secure-panel-god" | "/api/register" | "/api/reset-password" | "/api/login" | "/api/user" | "/api/orders" | "/api/products" | "/api/buy" | "/api/deposit/create" | "/api/deposit/callback" | "/api/health" | "/api/admin-auth" | "/api/admin" | "/api/support" | "/api/wallet" | "/only-god-access-x9k2";
+    page: "/" | "/login" | "/register" | "/reset-password" | "/support" | "/features" | "/products" | "/dashboard" | "/deposit" | "/cards" | "/valid" | "/valid-guarantee" | "/orders" | "/history" | "/cart" | "/x9k7-secure-admin-core-portal-88421" | "/x9k7-secure-admin-core-portal-88421/login" | "/panel-entry" | "/admin" | "/admin/login" | "/x7k9-secure-panel-god/login" | "/x7k9-secure-panel-god" | "/only-god-access-x9k2";
   };
   "routes/public-layout.tsx": {
     id: "routes/public-layout";
@@ -225,62 +183,6 @@ type RouteFiles = {
     id: "routes/admin-portal";
     page: "/x7k9-secure-panel-god";
   };
-  "routes/api.register.ts": {
-    id: "routes/api.register";
-    page: "/api/register";
-  };
-  "routes/api.reset-password.ts": {
-    id: "routes/api.reset-password";
-    page: "/api/reset-password";
-  };
-  "routes/api.login.ts": {
-    id: "routes/api.login";
-    page: "/api/login";
-  };
-  "routes/api.user.ts": {
-    id: "routes/api.user";
-    page: "/api/user";
-  };
-  "routes/api.orders.ts": {
-    id: "routes/api.orders";
-    page: "/api/orders";
-  };
-  "routes/api.products.ts": {
-    id: "routes/api.products";
-    page: "/api/products";
-  };
-  "routes/api.buy.ts": {
-    id: "routes/api.buy";
-    page: "/api/buy";
-  };
-  "routes/api.deposit.create.ts": {
-    id: "routes/api.deposit.create";
-    page: "/api/deposit/create";
-  };
-  "routes/api.deposit.callback.ts": {
-    id: "routes/api.deposit.callback";
-    page: "/api/deposit/callback";
-  };
-  "routes/api.health.ts": {
-    id: "routes/api.health";
-    page: "/api/health";
-  };
-  "routes/api.admin-auth.ts": {
-    id: "routes/api.admin-auth";
-    page: "/api/admin-auth";
-  };
-  "routes/api.admin.ts": {
-    id: "routes/api.admin";
-    page: "/api/admin";
-  };
-  "routes/api.support.ts": {
-    id: "routes/api.support";
-    page: "/api/support";
-  };
-  "routes/api.wallet.ts": {
-    id: "routes/api.wallet";
-    page: "/api/wallet";
-  };
   "routes/only-god-access-x9k2.tsx": {
     id: "routes/only-god-access-x9k2";
     page: "/only-god-access-x9k2";
@@ -313,19 +215,5 @@ type RouteModules = {
   "routes/admin-legacy-login-redirect": typeof import("./app/routes/admin-legacy-login-redirect.tsx");
   "routes/admin-legacy-hidden-login-redirect": typeof import("./app/routes/admin-legacy-hidden-login-redirect.tsx");
   "routes/admin-portal": typeof import("./app/routes/admin-portal.tsx");
-  "routes/api.register": typeof import("./app/routes/api.register.ts");
-  "routes/api.reset-password": typeof import("./app/routes/api.reset-password.ts");
-  "routes/api.login": typeof import("./app/routes/api.login.ts");
-  "routes/api.user": typeof import("./app/routes/api.user.ts");
-  "routes/api.orders": typeof import("./app/routes/api.orders.ts");
-  "routes/api.products": typeof import("./app/routes/api.products.ts");
-  "routes/api.buy": typeof import("./app/routes/api.buy.ts");
-  "routes/api.deposit.create": typeof import("./app/routes/api.deposit.create.ts");
-  "routes/api.deposit.callback": typeof import("./app/routes/api.deposit.callback.ts");
-  "routes/api.health": typeof import("./app/routes/api.health.ts");
-  "routes/api.admin-auth": typeof import("./app/routes/api.admin-auth.ts");
-  "routes/api.admin": typeof import("./app/routes/api.admin.ts");
-  "routes/api.support": typeof import("./app/routes/api.support.ts");
-  "routes/api.wallet": typeof import("./app/routes/api.wallet.ts");
   "routes/only-god-access-x9k2": typeof import("./app/routes/only-god-access-x9k2.tsx");
 };

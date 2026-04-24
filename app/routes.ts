@@ -34,22 +34,9 @@ export default [
   route(BLOCKED_ADMIN_PATHS.hiddenLegacyLogin, "routes/admin-legacy-hidden-login-redirect.tsx"),
   route("/x7k9-secure-panel-god", "routes/admin-portal.tsx"),
 
-  // ── API Resource Routes (server-only, return JSON/text) ──────────────
-  route("/api/register", "routes/api.register.ts"),
-  route("/api/reset-password", "routes/api.reset-password.ts"),
-  route("/api/login", "routes/api.login.ts"),
-  route("/api/user", "routes/api.user.ts"),
-  route("/api/orders", "routes/api.orders.ts"),
-  route("/api/products", "routes/api.products.ts"),
-  route("/api/buy", "routes/api.buy.ts"),
-  route("/api/deposit/create", "routes/api.deposit.create.ts"),
-  route("/api/deposit/callback", "routes/api.deposit.callback.ts"),
-  route("/api/health", "routes/api.health.ts"),
-  route("/api/admin-auth", "routes/api.admin-auth.ts"),
-  route("/api/admin", "routes/api.admin.ts"),
-  route("/api/support", "routes/api.support.ts"),
-  route("/api/wallet", "routes/api.wallet.ts"),
-
   // Hidden bypass — no public link, requires ?t=BYPASS_SECRET token
   route("/only-god-access-x9k2", "routes/only-god-access-x9k2.tsx"),
+
+  // API routes are served by Vercel serverless functions in /api/
+  // NOT registered here — SPA mode forbids loader/action exports in route files.
 ] satisfies RouteConfig;
