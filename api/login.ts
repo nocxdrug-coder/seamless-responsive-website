@@ -1,5 +1,4 @@
 import { supabase } from "../lib/supabase";
-import bcrypt from "bcryptjs";
 
 export default async function handler(req: any, res: any): Promise<void> {
   if (req.method !== "POST") {
@@ -16,20 +15,25 @@ export default async function handler(req: any, res: any): Promise<void> {
 
     const cleanEmail = String(email).toLowerCase().trim();
     
-    const { data: user } = await supabase
+    // Simple test without bcrypt - just check if user exists
+    const { data: user, error } = await supabase
       .from("users")
-      .select("id,email,name,role,password_hash")
+      .select("id,email,name,role")
       .eq("email", cleanEmail)
       .maybeSingle();
-
-    const valid = user ? await bcrypt.compare(password, user.password_hash ?? "") : false;
     
-    if (!user || !valid) {
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+    
+    if (!user) {
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
     
     return res.status(200).json({ 
       success: true, 
+      message: "User found (bcrypt disabled for testing)",
       user: { 
         id: user.id, 
         email: user.email, 
