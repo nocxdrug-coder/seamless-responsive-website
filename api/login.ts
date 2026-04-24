@@ -14,6 +14,9 @@ function parseBody(req: any): Promise<any> {
 }
 
 export default async function handler(req: any, res: any): Promise<void> {
+  console.log("Method:", req.method);
+  console.log("Content-Type:", req.headers?.["content-type"]);
+  
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ success: false, message: "Method Not Allowed" });
@@ -21,10 +24,11 @@ export default async function handler(req: any, res: any): Promise<void> {
 
   try {
     const body = await parseBody(req);
+    console.log("Parsed body:", JSON.stringify(body));
     const { email, password } = body;
     
     if (!email || !password) {
-      return res.status(400).json({ success: false, message: "Missing email or password" });
+      return res.status(400).json({ success: false, message: `Missing fields. Received: ${JSON.stringify(body)}` });
     }
     
     return res.status(200).json({ 
