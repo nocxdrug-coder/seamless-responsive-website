@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import { ArrowLeft, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useAuth } from "~/hooks/use-auth";
+import { login as loginApi } from "~/services/auth";
 import styles from "./login-form.module.css";
 
 export function LoginForm() {
-  const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
   // Respect redirect intent set by ProtectedLink (e.g. /cards from "Explore Cards")
@@ -32,30 +32,12 @@ export function LoginForm() {
 
     setIsLoading(true);
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
-      });
-      
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        setError("Invalid response from server. Please try again.");
-        return;
-      }
-
-      if (!res.ok || !data.success) {
-        setError(data.message || data.error || "Login failed. Please try again.");
-        return;
-      }
-      
+      const data = await loginApi(email.trim(), password);
+      console.log("Login success:", data);
       login(data.user);
-      navigate(fromPath, { replace: true });
-    } catch (err) {
-      setError("Failed to communicate with the server. Please check your connection.");
+      window.location.href = fromPath;
+    } catch (err: any) {
+      setError(err.message || "Network error. Please check your connection.");
     } finally {
       setIsLoading(false);
     }
