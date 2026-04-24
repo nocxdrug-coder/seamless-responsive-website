@@ -1,9 +1,7 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "./+types/root";
-import colorSchemeApi from "@dazl/color-scheme/client?url";
 import { ErrorBoundary as ErrorBoundaryRoot } from "~/components/error-boundary/error-boundary";
 import "./styles/index.css";
-import { useColorScheme } from "@dazl/color-scheme/react";
 import { AppBackground } from "~/components/ui/app-background";
 
 export const links: Route.LinksFunction = () => [
@@ -17,7 +15,6 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { rootCssClass, resolvedScheme } = useColorScheme();
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -26,7 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     logo: "/logo.png?v=2",
   };
   return (
-    <html lang="en" suppressHydrationWarning className={rootCssClass} style={{ colorScheme: resolvedScheme }}>
+    <html lang="en" suppressHydrationWarning className="dark-theme" style={{ colorScheme: "dark" }}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,7 +31,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="twitter:image" content="/logo.png?v=2" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <Meta />
-        <script src={colorSchemeApi} data-light-class="light-theme" data-dark-class="dark-theme"></script>
         <Links />
       </head>
       <body>
