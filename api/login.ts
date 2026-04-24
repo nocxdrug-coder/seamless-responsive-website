@@ -13,7 +13,8 @@ function buildWebReq(nodeReq: any): Request {
 export default async function handler(req: any, res: any): Promise<void> {
   console.log("API HIT: /api/login", req.method);
 
-  if (req.method !== "POST") {
+  const method = (req.method || "").toUpperCase();
+  if (method !== "POST") {
     return res.status(405).json({ success: false, message: "Only POST allowed" });
   }
 
