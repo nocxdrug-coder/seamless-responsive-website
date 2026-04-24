@@ -1,6 +1,10 @@
 {
   "buildCommand": "npm run build",
-  "framework": null,
+  "outputDirectory": "public",
+  "functions": {
+    "api/login.ts": { "runtime": "@vercel/node@3.0.0" },
+    "api/health.ts": { "runtime": "@vercel/node@3.0.0" }
+  },
   "rewrites": [
     {
       "source": "/api/:path*",
