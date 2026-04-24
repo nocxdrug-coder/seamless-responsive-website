@@ -166,7 +166,7 @@ export function MyCartPage() {
                     </div>
                   </div>
                   <div className={styles.itemRight}>
-                    <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
+                    <span className={styles.itemPrice}>${isFinite(item.price) ? item.price.toFixed(2) : "0.00"}</span>
                     <button
                       className={styles.removeBtn}
                       onClick={() => removeFromCart(item.id)}

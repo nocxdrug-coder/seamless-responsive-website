@@ -19,7 +19,8 @@ function maskZip(zip: string | null | undefined): string {
   return `${value[0]}***${value[value.length - 1]}`;
 }
 
-export function CardsTable({ cards }: Props) {
+export function CardsTable({ cards: cardsProp }: Props) {
+  const cards = Array.isArray(cardsProp) ? cardsProp : [];
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { cart, addToCart } = useCart();
@@ -76,7 +77,7 @@ export function CardsTable({ cards }: Props) {
               <td className={styles.zip}>{maskZip(card.zip)}</td>
               <td className={styles.bank}>{card.bank}</td>
               <td>
-                <span className={styles.price}>${card.price.toFixed(2)}</span>
+                <span className={styles.price}>${isFinite(card.price) ? card.price.toFixed(2) : "0.00"}</span>
               </td>
               <td>
                 <button

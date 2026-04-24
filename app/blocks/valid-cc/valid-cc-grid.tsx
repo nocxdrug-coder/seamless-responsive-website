@@ -77,9 +77,9 @@ export function ValidCcGrid() {
     async function fetchValid() {
       try {
         const res = await fetch("/api/products?valid=1", { credentials: "include" });
-        const data = await res.json();
-        if (!res.ok) return;
-        const next = ((data?.products ?? []) as ApiProductRow[]).map(toVirtualCard);
+        if (!res.ok) { if (!cancelled) setLoading(false); return; }
+        const data = await res.json().catch(() => ({}));
+        const next = (Array.isArray(data?.products) ? data.products as ApiProductRow[] : []).map(toVirtualCard);
         if (!cancelled) setCards(next);
       } catch {
         // ignore
@@ -88,7 +88,7 @@ export function ValidCcGrid() {
       }
     }
     fetchValid();
-    const id = window.setInterval(fetchValid, 2000);
+    const id = window.setInterval(fetchValid, 15_000);
     return () => {
       cancelled = true;
       window.clearInterval(id);
@@ -133,7 +133,7 @@ export function ValidCcGrid() {
             <div className={styles.priceRow}>
               <div>
                 <div className={styles.startingFrom}>STARTING FROM</div>
-                <div className={styles.price}>${card.price.toFixed(2)}</div>
+                <div className={styles.price}>${isFinite(card.price) ? card.price.toFixed(2) : "0.00"}</div>
               </div>
               <button
                 className={styles.buyBtn}
