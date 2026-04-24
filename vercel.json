@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "public",
+  "framework": "react-router",
   "rewrites": [
     {
       "source": "/api/:path*",
