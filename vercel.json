@@ -1,7 +1,16 @@
 {
-  "framework": "react-router",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
+  "routes": [
+    {
+      "src": "^/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
